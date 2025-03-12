@@ -25,6 +25,7 @@ const Calendar = () => {
           calendars={1}
           value={value}
           onChange={setValue}
+          sx={{ width: 420, height: 400 }}
         />
         <div className='calendar-buttons calendar-divider'>
           <Button variant='text' style={{ height: 40 }}>Clear</Button>

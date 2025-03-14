@@ -1,6 +1,7 @@
 package com.example.stepout
 
 import android.content.res.Configuration
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -11,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -45,7 +45,7 @@ fun getUserInfoStyle(configuration: Configuration): UserInfoStyle {
 
     val addCalendarButtonWidth = when {
         screenWidth <= 320.dp -> 140.dp
-        else -> 169.dp
+        else -> 168.dp
     }
 
     var infoStyle = UserInfoStyle(
@@ -65,7 +65,7 @@ fun UserInfo(userName: String, userInfoStyle: UserInfoStyle) {
             .fillMaxWidth(),
         verticalAlignment = Alignment.CenterVertically
     ) {
-        Icon(
+        Image(
             contentDescription = "",
             modifier = Modifier.size(55.dp),
             painter = painterResource(id = R.drawable.user_icon),

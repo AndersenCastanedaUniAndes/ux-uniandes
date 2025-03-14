@@ -1,14 +1,24 @@
 package com.example.stepout
 
 import android.content.res.Configuration
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -18,6 +28,8 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
 import com.example.stepout.ui.theme.StepoutTheme
 import java.util.Calendar
 
@@ -78,7 +90,7 @@ fun getHomeStyle(configuration: Configuration): HomeStyle {
 }
 
 @Composable
-fun HomeView() {
+fun HomeView(navController: NavHostController) {
     val configuration      = LocalConfiguration.current
     val viewPadding        = getViewPadding(configuration)
     val homeStyle          = getHomeStyle(configuration)
@@ -118,39 +130,63 @@ fun HomeView() {
             else -> 42.dp
         }
 
-        Column (
-            modifier = Modifier
-                .fillMaxHeight()
-                .padding(viewPadding)
-                .verticalScroll(rememberScrollState())
+        Box (
+            modifier = Modifier.padding(PaddingValues(
+                top = 25.dp
+            ))
         ) {
-            val appNameStyle = getAppNameStyle()
-            AppName(appNameStyle)
-
-            val userInfoStyle = getUserInfoStyle(configuration)
-            Spacer(modifier = Modifier.height(20.dp))
-            UserInfo("Diana", userInfoStyle)
-
-            Spacer(modifier = Modifier.height(spacerSize))
-            TextDisplayMedium(viewTitleTextStyle, "Pausas activas para hoy")
-
-            Spacer(modifier = Modifier.height(24.dp))
-            Column (
-
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight()
+                    .padding(viewPadding)
+                    .verticalScroll(rememberScrollState()),
             ) {
+                Spacer(modifier = Modifier.height(35.dp))
 
-                ActivePauses(
-                    textStyle = homeStyle.cardGroupTextStyle,
-                    title = "Completadas",
-                    activePauses = breaks
-                )
+                val appNameStyle = getAppNameStyle()
+                AppName(appNameStyle)
+
+                val userInfoStyle = getUserInfoStyle(configuration)
+                Spacer(modifier = Modifier.height(20.dp))
+                UserInfo("Diana", userInfoStyle)
+
+                Spacer(modifier = Modifier.height(spacerSize))
+                TextDisplayMedium(viewTitleTextStyle, "Pausas activas para hoy")
 
                 Spacer(modifier = Modifier.height(24.dp))
-                ActivePauses(
-                    textStyle = homeStyle.cardGroupTextStyle,
-                    title = "Por completar",
-                    activePauses = breaks
-                )
+                Column {
+                    ActivePauses(
+                        textStyle = homeStyle.cardGroupTextStyle,
+                        title = "Completadas",
+                        activePauses = breaks
+                    )
+
+                    Spacer(modifier = Modifier.height(24.dp))
+                    ActivePauses(
+                        textStyle = homeStyle.cardGroupTextStyle,
+                        title = "Por completar",
+                        activePauses = breaks
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+            }
+
+            Row (
+                modifier = Modifier
+                    .background(color = Color(red = 255, green = 0, blue = 0, alpha = 180))
+                    .fillMaxWidth()
+            ) {
+                IconButton(
+                    modifier = Modifier.size(40.dp),
+                    onClick = { navController.navigate("StartView") }
+                ) {
+                    Icon(
+                        contentDescription = "",
+                        imageVector = Icons.Default.ArrowBack,
+                        tint = Color.White
+                    )
+                }
             }
         }
     }
@@ -161,7 +197,9 @@ fun HomeView() {
 @Preview(widthDp = 480, heightDp = 920)
 @Composable
 fun HomeViewPreview() {
+    val navController = rememberNavController()
+
     StepoutTheme {
-        HomeView()
+        HomeView(navController)
     }
 }

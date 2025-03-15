@@ -148,7 +148,7 @@ fun HomeView(navController: NavHostController) {
 
                 val userInfoStyle = getUserInfoStyle(configuration)
                 Spacer(modifier = Modifier.height(20.dp))
-                UserInfo("Diana", userInfoStyle)
+                UserInfo("Diana", userInfoStyle, navController)
 
                 Spacer(modifier = Modifier.height(spacerSize))
                 TextDisplayMedium(viewTitleTextStyle, "Pausas activas para hoy")

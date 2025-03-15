@@ -47,12 +47,30 @@ class MainActivity : ComponentActivity() {
 fun AppNavigation() {
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "StartView") {
-        composable("StartView") { StartView(navController) }
-        composable("HomeView") { HomeView(navController) }
-        composable("ActivePauseView") { ActivePauseView(navController) }
+    NavHost(
+        navController = navController,
+        // Cambia el startDestination si quieres que la app inicie directamente en la pantalla de Login
+        startDestination = "LoginView"
+    ) {
+        // 1. Ruta para la pantalla de login
+        composable("LoginView") {
+            LoginView(navController)
+        }
+        // 2. Ruta para la pantalla de inicio (StartView)
+        composable("StartView") {
+            StartView(navController)
+        }
+        // 3. Ruta para HomeView
+        composable("HomeView") {
+            HomeView(navController)
+        }
+        // 4. Ruta para ActivePauseView
+        composable("ActivePauseView") {
+            ActivePauseView(navController)
+        }
     }
 }
+
 
 @Preview(widthDp = 320, heightDp = 640)
 @Preview(widthDp = 420, heightDp = 840)

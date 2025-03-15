@@ -22,11 +22,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 
 data class UserInfoStyle (
     var addCalendarButtonTextStyle: TextStyle,
     var addCalendarButtonHeight: Dp,
-    var addCalendarButtonWidth: Dp
+    var addCalendarButtonWidth: Dp,
 )
 
 @Composable
@@ -58,7 +59,7 @@ fun getUserInfoStyle(configuration: Configuration): UserInfoStyle {
 }
 
 @Composable
-fun UserInfo(userName: String, userInfoStyle: UserInfoStyle) {
+fun UserInfo(userName: String, userInfoStyle: UserInfoStyle, navController: NavHostController) {
     Row (
         horizontalArrangement = Arrangement.Start,
         modifier = Modifier
@@ -88,7 +89,7 @@ fun UserInfo(userName: String, userInfoStyle: UserInfoStyle) {
                 modifier = Modifier
                     .height(userInfoStyle.addCalendarButtonHeight)
                     .width(userInfoStyle.addCalendarButtonWidth),
-                onClick = { }
+                onClick = { navController.navigate("LoginView") }
             ) {
                 Text(
                     color = Color.White,

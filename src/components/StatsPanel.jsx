@@ -1,13 +1,16 @@
 import CustomCard from './CustomCard';
+import { Grid } from '@mui/material';
 
 const StatsPanel = ({ stats }) => {
   return (
-    <div style={{display: 'grid', gap: 12, marginTop: 76}}>
+    <Grid container spacing={2} style={{ marginTop: '76px' }}>
       {stats.map((stat, index) => (
-        <CustomCard key={index} title={stat.title} content={stat.content} />
+        <Grid item xs={12} sm={6} key={index}>
+          <CustomCard title={stat.title} content={stat.content} />
+        </Grid>
       ))}
-    </div>
+    </Grid>
   );
-}
+};
 
 export default StatsPanel;
